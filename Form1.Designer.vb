@@ -70,6 +70,8 @@ Partial Class Form1
         Me.TextBox7 = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
         Me.grpStream.SuspendLayout()
         Me.grpControls.SuspendLayout()
         CType(Me.AxMG17Motor1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -244,6 +246,7 @@ Partial Class Form1
         '
         Me.TextBox1.Location = New System.Drawing.Point(588, 95)
         Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
         Me.TextBox1.Size = New System.Drawing.Size(57, 20)
         Me.TextBox1.TabIndex = 32
         '
@@ -288,6 +291,7 @@ Partial Class Form1
         Me.TextBox2.Location = New System.Drawing.Point(475, 192)
         Me.TextBox2.Multiline = True
         Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.ReadOnly = True
         Me.TextBox2.Size = New System.Drawing.Size(84, 255)
         Me.TextBox2.TabIndex = 36
         '
@@ -296,6 +300,7 @@ Partial Class Form1
         Me.TextBox3.Location = New System.Drawing.Point(565, 192)
         Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.ReadOnly = True
         Me.TextBox3.Size = New System.Drawing.Size(80, 255)
         Me.TextBox3.TabIndex = 37
         '
@@ -328,6 +333,7 @@ Partial Class Form1
         '
         Me.TextBox4.Location = New System.Drawing.Point(23, 192)
         Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.ReadOnly = True
         Me.TextBox4.Size = New System.Drawing.Size(319, 20)
         Me.TextBox4.TabIndex = 41
         '
@@ -405,6 +411,7 @@ Partial Class Form1
         '
         Me.TextBox8.Location = New System.Drawing.Point(565, 454)
         Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.ReadOnly = True
         Me.TextBox8.Size = New System.Drawing.Size(80, 20)
         Me.TextBox8.TabIndex = 52
         '
@@ -412,6 +419,7 @@ Partial Class Form1
         '
         Me.TextBox10.Location = New System.Drawing.Point(565, 478)
         Me.TextBox10.Name = "TextBox10"
+        Me.TextBox10.ReadOnly = True
         Me.TextBox10.Size = New System.Drawing.Size(80, 20)
         Me.TextBox10.TabIndex = 54
         '
@@ -469,10 +477,28 @@ Partial Class Form1
         '
         Me.ComboBox2.FormattingEnabled = True
         Me.ComboBox2.Items.AddRange(New Object() {"Forward", "Reverse"})
-        Me.ComboBox2.Location = New System.Drawing.Point(580, 121)
+        Me.ComboBox2.Location = New System.Drawing.Point(565, 121)
         Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(65, 21)
+        Me.ComboBox2.Size = New System.Drawing.Size(80, 21)
         Me.ComboBox2.TabIndex = 62
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(473, 151)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(73, 13)
+        Me.Label14.TabIndex = 64
+        Me.Label14.Text = "Serial Number"
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Items.AddRange(New Object() {"83814884", "80861744", "80861727"})
+        Me.ComboBox3.Location = New System.Drawing.Point(565, 148)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(80, 21)
+        Me.ComboBox3.TabIndex = 65
         '
         'Form1
         '
@@ -480,6 +506,8 @@ Partial Class Form1
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Menu
         Me.ClientSize = New System.Drawing.Size(669, 592)
+        Me.Controls.Add(Me.ComboBox3)
+        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.ComboBox2)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.TextBox7)
@@ -576,4 +604,6 @@ Partial Class Form1
     Friend WithEvents TextBox7 As TextBox
     Friend WithEvents Label13 As Label
     Friend WithEvents ComboBox2 As ComboBox
+    Friend WithEvents Label14 As Label
+    Friend WithEvents ComboBox3 As ComboBox
 End Class

@@ -1,5 +1,6 @@
 ﻿Imports FieldMax2DLLServer
 Imports System.Math
+Imports System.Threading.Tasks
 
 ''' <summary>
 ''' This example was created in Visual Basic 2010. This is a simple programming example that is set up to use the power measurement
@@ -54,10 +55,11 @@ Public Class Form1
         ' Turns the streaming data mode on.
         radStreamOn.Checked = True
 
-        AxMG17Motor1.StartCtrl()
         ' Start motor control
 
         Text = "Knife Edge Experiment"
+        ComboBox3.SelectedIndex = 0
+        ComboBox2.SelectedIndex = 1
     End Sub
 
 
@@ -306,6 +308,24 @@ Public Class Form1
         TextBox1.Text = JogAmt
     End Sub
 
+
+    Private Sub ComboBox1_SelectedTextChanged(sender As Object, e As EventArgs) Handles ComboBox1.TextChanged
+        Try
+            If ComboBox1.Text IsNot "" Then
+                Dim tempstep As Integer = Convert.ToInt32(ComboBox1.Text)
+                If tempstep = 20 Or tempstep = 60 Then
+                    ' Convert string to integer
+                    StepSize = tempstep
+                    ' Calculate jog distance based on travel distance and step size
+                    JogAmt = (TravelDist / StepSize)
+                    ' Display travel distance in textbox
+                    TextBox1.Text = JogAmt
+                End If
+            End If
+        Catch
+        End Try
+    End Sub
+
     Private Sub NumericUpDown1_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDown1.ValueChanged
         ' Set minimum and maximum values for updown box
         NumericUpDown1.Minimum = 1
@@ -357,12 +377,14 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Async Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
+        Button1.Enabled = False
         Dim device As IFM2Device
 
         If StepSize = 1 Or TravelDist = 0 Then
             MessageBox.Show("Please make sure Travel Distance and Number of Steps have been set", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+            Button1.Enabled = True
             Exit Sub
         End If
 
@@ -407,8 +429,7 @@ Public Class Form1
             TotDist += JogAmt ' Increment total distance traveled 
             TextBox8.Text = NumFormat(Min)
             TextBox10.Text = NumFormat(Max)
-
-            ResponsiveSleep(3000) ' Allows data to still stream despite sleeping
+            Await Task.Delay(3500)
             ProgressBar1.Increment(1)
         Next
 
@@ -438,6 +459,7 @@ Public Class Form1
 
         End If
 
+        Button1.Enabled = True
     End Sub
 
     Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles TextBox3.TextChanged
@@ -475,16 +497,10 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub ResponsiveSleep(ByRef iMilliSeconds As Integer)
-        Dim i As Integer, iHalfSeconds As Integer = iMilliSeconds / 500
-        For i = 1 To iHalfSeconds
-            Threading.Thread.Sleep(500) : Application.DoEvents()
-        Next i
-    End Sub
-
     Private Sub TextBox5_TextChanged(sender As Object, e As EventArgs) Handles TextBox5.TextChanged
         TextBox5.Multiline = True
         TextBox5.Visible = False
+
     End Sub
 
     Private Sub TextBox6_TextChanged(sender As Object, e As EventArgs) Handles TextBox6.TextChanged
@@ -504,6 +520,7 @@ Public Class Form1
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         State = 0
+        Button1.Enabled = True
     End Sub
 
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
@@ -520,6 +537,12 @@ Public Class Form1
         Else
             Switch = 1
         End If
+    End Sub
+
+    Private Sub ComboBox3_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox3.SelectedIndexChanged
+
+        AxMG17Motor1.HWSerialNum = ComboBox3.SelectedItem
+        AxMG17Motor1.StartCtrl()
     End Sub
 
 End Class
